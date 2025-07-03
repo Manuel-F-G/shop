@@ -14,7 +14,6 @@ export default function ProtectedAdminPanel() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
 
-  // Escuchar cambios de sesión
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user);
@@ -38,16 +37,23 @@ export default function ProtectedAdminPanel() {
   };
 
   if (loading) {
-    return <p style={{ textAlign: "center", marginTop: "2rem" }}>Cargando...</p>;
+    return (
+      <div className="min-h-screen bg-zinc-900 text-white flex items-center justify-center">
+        <p className="text-center text-lg">Cargando...</p>
+      </div>
+    );
   }
 
   if (user) {
     return (
-      <div>
-        <div style={{
-          display: "flex",
-        }}>
-          <button onClick={handleLogout}></button>
+      <div className="bg-zinc-900 text-white min-h-screen">
+        <div className="flex justify-end p-4">
+          <button
+            onClick={handleLogout}
+            className="bg-zinc-800 text-white px-4 py-2 rounded border border-zinc-600 hover:bg-zinc-700"
+          >
+            Cerrar sesión
+          </button>
         </div>
         <AdminPanel />
       </div>
@@ -55,30 +61,42 @@ export default function ProtectedAdminPanel() {
   }
 
   return (
-    <div style={{ maxWidth: 300, margin: "auto", padding: "2rem" }}>
-      <h2 style={{ marginBottom: "1rem" }}>Login - Panel de Administración</h2>
-      <form onSubmit={handleLogin}>
+    <div className="min-h-screen bg-zinc-900 text-white flex items-center justify-center px-4">
+      <form
+        onSubmit={handleLogin}
+        className="bg-zinc-800 p-8 rounded-lg shadow-md w-full max-w-md space-y-6"
+      >
+        <h2 className="text-center text-2xl font-bold text-[#ffff00]">
+          Login - Panel de Administración
+        </h2>
+
         <input
           type="email"
           placeholder="Correo electrónico"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          style={{ width: "100%", padding: "0.5rem", marginBottom: "1rem" }}
+          className="w-full bg-transparent border-b border-zinc-600 py-2 outline-none placeholder:text-gray-400"
         />
+
         <input
           type="password"
           placeholder="Contraseña"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
-          style={{ width: "100%", padding: "0.5rem", marginBottom: "1rem" }}
+          className="w-full bg-transparent border-b border-zinc-600 py-2 outline-none placeholder:text-gray-400"
         />
-        <button type="submit" style={{ width: "100%", padding: "0.5rem" }}>
+
+        <button
+          type="submit"
+          className="w-full bg-[#ffff00] text-black font-semibold py-2 rounded hover:brightness-110 transition"
+        >
           Entrar
         </button>
+
+        {error && <p className="text-center text-red-500">{error}</p>}
       </form>
-      {error && <p style={{ color: "red", marginTop: "1rem" }}>{error}</p>}
     </div>
   );
 }
