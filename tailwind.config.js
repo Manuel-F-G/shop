@@ -2,10 +2,11 @@
 export default {
   content: [
     "./index.html",
-    "./src/**/*.{js,jsx}",
+    "./src/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/@heroui/react/**/*.{js,ts,jsx,tsx}" // ← ¡ESTO!
   ],
   theme: {
     extend: {},
   },
   plugins: [],
-}
+};

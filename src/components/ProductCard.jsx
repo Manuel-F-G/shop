@@ -1,26 +1,32 @@
 export default function ProductCard({ nombre, descripcion, imagenURL, disponible }) {
   return (
-    <div className="relative w-72 bg-zinc-900 rounded-2xl overflow-hidden shadow-xl hover:scale-105 transition-transform border border-zinc-800">
-      {/* Imagen principal */}
-      <img
-        src={imagenURL}
-        alt={nombre}
-        className="w-full h-72 object-cover"
-      />
-
-      {/* Glassmorphism floating box */}
-      <div className="absolute bottom-16 left-1/2 transform -translate-x-1/2 w-[90%] px-4 py-2 bg-white/10 backdrop-blur-md rounded-xl flex items-center justify-between shadow-md">
-        <span className="text-white text-sm truncate">{nombre}</span>
-        <button
-          className="bg-black/30 text-white text-xs font-medium px-3 py-1 rounded-full hover:bg-black/40 transition"
-        >
-          {disponible ? "Comprar" : "Notificarme"}
-        </button>
+    <div className="w-72 h-[400px] bg-black/60 backdrop-blur-md rounded-xl overflow-hidden shadow-lg border border-white/10 flex flex-col justify-between hover:scale-105 transition-transform">
+      
+      {/* Imagen */}
+      <div className="h-[60%] w-full">
+        <img
+          src={imagenURL}
+          alt={nombre}
+          className="h-full w-full object-cover"
+        />
       </div>
 
-      {/* Descripción flotante abajo */}
-      <div className="bg-white/10 backdrop-blur-sm p-3">
-        <p className="text-sm text-gray-200 line-clamp-2">{descripcion}</p>
+      {/* Contenido */}
+      <div className="px-4 py-2 flex-1">
+        <h3 className="text-white font-bold text-base">{nombre}</h3>
+        <p className="text-sm text-gray-400 line-clamp-2">{descripcion}</p>
+      </div>
+
+      {/* Footer flotante */}
+      <div className="px-4 py-3">
+        <div className="bg-zinc-800/40 backdrop-blur-md rounded-lg p-2 flex items-center justify-between">
+          <span className="text-xs text-gray-300">
+            {disponible ? "Disponible" : "Próximamente"}
+          </span>
+          <button className="text-xs text-white bg-zinc-700/50 hover:bg-zinc-600/50 px-4 py-1 rounded-full transition">
+            {disponible ? "Comprar" : "Notificarme"}
+          </button>
+        </div>
       </div>
     </div>
   );
