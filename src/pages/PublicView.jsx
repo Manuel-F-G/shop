@@ -38,8 +38,13 @@ export default function ProductosPage() {
     alt="EggsShop logo"
     className="h-16 w-auto"
   />
-  <span className="text-xl font-light tracking-wide">EggsShop</span>
+<span className="inline-flex animate-text-gradient bg-gradient-to-r from-[#fff638] via-[#82adff] to-white bg-[200%_auto] bg-clip-text text-3xl text-transparent font-semibold tracking-wide">
+  EggsShop
+</span>
+
+
 </Link>
+
 
 
     <div className="flex justify-center md:justify-end">
@@ -47,7 +52,7 @@ export default function ProductosPage() {
         <Search className="h-4 w-4 text-gray-500 mr-3" />
         <input
           type="text"
-          placeholder="Search"
+          placeholder="Buscar"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           className="bg-transparent text-sm placeholder-gray-500 focus:outline-none w-full md:w-48"
@@ -60,10 +65,13 @@ export default function ProductosPage() {
       {/* Main */}
       <main className="w-full overflow-x-hidden px-4 py-16">
         <div className="mb-16 text-center">
-          <h1 className="text-5xl md:text-6xl font-light mb-4 tracking-tight">Productos</h1>
-          <p className="text-gray-400 text-lg font-light max-w-2xl mx-auto">
-            Bienvenido a la mejor chop del peru
-          </p>
+          <h1 className="text-5xl md:text-6xl font-light mb-4 tracking-tight animate-text-gradient bg-gradient-to-r from-yellow-300 via-pink-400 to-rose-300 bg-[200%_auto] bg-clip-text text-transparent">
+  Productos
+</h1>
+
+<span className="inline-flex animate-text-gradient bg-gradient-to-r from-[#b2a8fd] via-[#8678f9] to-[#c7d2fe] bg-[200%_auto] bg-clip-text text-xl text-transparent font-light tracking-wide">
+  Bienvenido a la mejor chop del peru 
+  </span>
         </div>
 
         {productosFiltrados.length === 0 ? (
