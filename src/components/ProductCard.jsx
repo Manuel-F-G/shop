@@ -7,6 +7,7 @@ export default function ProductCard({ nombre, descripcion, imagenURL, disponible
         <img
           src={imagenURL}
           alt={nombre}
+          loading="lazy" // ← Lazy loading activado
           className="h-full w-full object-cover"
         />
       </div>
