@@ -30,48 +30,42 @@ export default function ProductosPage() {
   return (
     <div className="min-h-screen bg-black text-white overflow-x-hidden">
       {/* Header */}
-<header className="border-b border-gray-800/50">
-  <div className="max-w-7xl mx-auto px-6 py-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-<Link to="/" className="flex items-center gap-2">
-  <img
-    src="https://i.postimg.cc/NMzHXb87/Eggshop.png"
-    alt="EggsShop logo"
-    className="h-16 w-auto"
-  />
-<span className="inline-flex animate-text-gradient bg-gradient-to-r from-[#fff638] via-[#82adff] to-white bg-[200%_auto] bg-clip-text text-3xl text-transparent font-semibold tracking-wide">
-  EggsShop
-</span>
-
-
-</Link>
-
-
-
-    <div className="flex justify-center md:justify-end">
-      <div className="flex items-center bg-gray-900/50 rounded-full px-4 py-2 border border-gray-800 w-full md:w-auto">
-        <Search className="h-4 w-4 text-gray-500 mr-3" />
-        <input
-          type="text"
-          placeholder="Buscar"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="bg-transparent text-sm placeholder-gray-500 focus:outline-none w-full md:w-48"
-        />
-      </div>
-    </div>
-  </div>
-</header>
+      <header className="border-b border-gray-800/50">
+        <div className="max-w-7xl mx-auto px-6 py-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <Link to="/" className="flex items-center gap-2">
+            <img
+              src="https://i.postimg.cc/NMzHXb87/Eggshop.png"
+              alt="EggsShop logo"
+              className="h-16 w-auto"
+            />
+            <span className="inline-flex animate-text-gradient bg-gradient-to-r from-[#fff638] via-[#82adff] to-white bg-[200%_auto] bg-clip-text text-3xl text-transparent font-semibold tracking-wide">
+              EggsShop
+            </span>
+          </Link>
+          <div className="flex justify-center md:justify-end">
+            <div className="flex items-center bg-gray-900/50 rounded-full px-4 py-2 border border-gray-800 w-full md:w-auto">
+              <Search className="h-4 w-4 text-gray-500 mr-3" />
+              <input
+                type="text"
+                placeholder="Buscar"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="bg-transparent text-sm placeholder-gray-500 focus:outline-none w-full md:w-48"
+              />
+            </div>
+          </div>
+        </div>
+      </header>
 
       {/* Main */}
       <main className="w-full overflow-x-hidden px-4 py-16">
         <div className="mb-16 text-center">
           <h1 className="text-5xl md:text-6xl font-light mb-4 tracking-tight animate-text-gradient bg-gradient-to-r from-yellow-300 via-pink-400 to-rose-300 bg-[200%_auto] bg-clip-text text-transparent">
-  Productos
-</h1>
-
-<span className="inline-flex animate-text-gradient bg-gradient-to-r from-[#b2a8fd] via-[#8678f9] to-[#c7d2fe] bg-[200%_auto] bg-clip-text text-xl text-transparent font-light tracking-wide">
-  Bienvenido a la mejor chop del peru 
-  </span>
+            Productos
+          </h1>
+          <span className="inline-flex animate-text-gradient bg-gradient-to-r from-[#b2a8fd] via-[#8678f9] to-[#c7d2fe] bg-[200%_auto] bg-clip-text text-xl text-transparent font-light tracking-wide">
+            Bienvenido a la mejor chop del peru
+          </span>
         </div>
 
         {productosFiltrados.length === 0 ? (
@@ -105,29 +99,50 @@ export default function ProductosPage() {
           <div>
             <h4 className="text-sm font-medium text-gray-300">Enlaces</h4>
             <div className="space-y-2 mt-2">
-              <Link to="/productos" className="block text-sm text-gray-400 hover:text-white transition">Productos</Link>
-              <Link to="/soporte" className="block text-sm text-gray-400 hover:text-white transition">Soporte</Link>
-              <Link to="/contacto" className="block text-sm text-gray-400 hover:text-white transition">Contacto</Link>
+              <a
+                href="https://discord.gg/D5D5DfRf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block text-sm text-gray-400 hover:text-white transition"
+              >
+                Discord
+              </a>
+              <a
+                href="https://publiegg.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block text-sm text-gray-400 hover:text-white transition"
+              >
+                Panel
+              </a>
             </div>
           </div>
 
           <div>
             <h4 className="text-sm font-medium text-gray-300">Contacto</h4>
             <div className="space-y-2 text-sm text-gray-400 mt-2">
-              <p>soporte@store.com</p>
-              <p>+1 (555) 123-4567</p>
+              <p>Solo ticket, no dm</p>
+              <p>9999999999</p>
             </div>
           </div>
         </div>
 
-        <div className="border-t border-gray-800/50 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500 px-6">
-          <p>© 2024 Store. Todos los derechos reservados.</p>
-          <div className="flex gap-6 mt-4 md:mt-0">
-            <Link to="/privacidad" className="hover:text-gray-300 transition-colors">Privacidad</Link>
-            <Link to="/terminos" className="hover:text-gray-300 transition-colors">Términos</Link>
-          </div>
+        <div className="border-t border-gray-800/50 py-6">
+          <p className="text-center text-sm text-gray-500">
+            © 2025 Store. Todos los derechos reservados.
+          </p>
         </div>
       </footer>
+
+      {/* Botón flotante Discord */}
+<a
+  href="https://discord.gg/D5D5DfRf"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="fixed bottom-6 right-6 z-50 px-5 py-2 rounded-full border border-white/20 bg-white/10 text-white text-sm font-medium backdrop-blur-md shadow-lg hover:bg-white/20 transition"
+>
+  Únete a Discord
+</a>
     </div>
   );
 }

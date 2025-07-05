@@ -24,7 +24,7 @@ export default function ProductCard({ nombre, descripcion, imagenURL, disponible
             {disponible ? "Disponible" : "Próximamente"}
           </span>
           <button className="text-xs text-white bg-zinc-700/50 hover:bg-zinc-600/50 px-4 py-1 rounded-full transition">
-            {disponible ? `$${precio?.toFixed(2)}` : "Notificarme"}
+            {disponible ? `$${precio?.toFixed(2)}` : "No hay we"}
           </button>
         </div>
       </div>
