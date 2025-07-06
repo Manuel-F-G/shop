@@ -22,10 +22,12 @@ export default function ProductosPage() {
     return () => unsubscribe();
   }, []);
 
-  const productosFiltrados = productos.filter((producto) =>
-    producto.nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    producto.descripcion.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const productosFiltrados = productos
+    .filter((producto) =>
+      producto.nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      producto.descripcion.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+    .sort((a, b) => a.nombre.localeCompare(b.nombre)); // ← Orden alfabético por nombre
 
   return (
     <div className="min-h-screen bg-black text-white overflow-x-hidden">
@@ -135,14 +137,14 @@ export default function ProductosPage() {
       </footer>
 
       {/* Botón flotante Discord */}
-<a
-  href="https://discord.gg/D5D5DfRf"
-  target="_blank"
-  rel="noopener noreferrer"
-  className="fixed bottom-6 right-6 z-50 px-5 py-2 rounded-full border border-white/20 bg-white/10 text-white text-sm font-medium backdrop-blur-md shadow-lg hover:bg-white/20 transition"
->
-  Únete a Discord
-</a>
+      <a
+        href="https://discord.gg/D5D5DfRf"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-6 right-6 z-50 px-5 py-2 rounded-full border border-white/20 bg-white/10 text-white text-sm font-medium backdrop-blur-md shadow-lg hover:bg-white/20 transition"
+      >
+        Únete a Discord
+      </a>
     </div>
   );
 }
