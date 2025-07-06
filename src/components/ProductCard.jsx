@@ -15,7 +15,7 @@ export default function ProductCard({ nombre, descripcion, imagenURL, disponible
       {/* Contenido */}
       <div className="px-4 pt-2 pb-1 h-[90px]">
         <h3 className="text-white font-semibold text-sm">{nombre}</h3>
-        <p className="text-sm text-gray-400 leading-snug">{descripcion}</p>
+        <p className="text-sm text-gray-400 leading-snug whitespace-pre-line">{descripcion}</p>
       </div>
 
       {/* Footer */}
