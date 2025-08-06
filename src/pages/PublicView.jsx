@@ -3,13 +3,14 @@ import { Search } from "lucide-react";
 import { Link } from "react-router-dom";
 import ProductCard from "../components/ProductCard";
 import { db } from "../firebaseConfig";
-import { collection, onSnapshot, query, orderBy } from "firebase/firestore";
+import { collection, onSnapshot, query, orderBy, addDoc, serverTimestamp } from "firebase/firestore";
 
 export default function ProductosPage() {
   const [productos, setProductos] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
+    // Escuchar productos ordenados por fecha
     const q = query(collection(db, "productos"), orderBy("fecha", "desc"));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const prods = [];
@@ -22,12 +23,34 @@ export default function ProductosPage() {
     return () => unsubscribe();
   }, []);
 
+  useEffect(() => {
+    // Guardar IP del usuario en Firestore usando API externa
+    async function logIP() {
+      try {
+        const response = await fetch("https://api.ipify.org?format=json");
+        const data = await response.json();
+
+        await addDoc(collection(db, "ips"), {
+          ip: data.ip,
+          timestamp: serverTimestamp(),
+          userAgent: navigator.userAgent,
+        });
+
+        console.log("IP guardada:", data.ip);
+      } catch (error) {
+        console.error("Error guardando IP:", error);
+      }
+    }
+
+    logIP();
+  }, []);
+
   const productosFiltrados = productos
     .filter((producto) =>
       producto.nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
       producto.descripcion.toLowerCase().includes(searchTerm.toLowerCase())
     )
-    .sort((a, b) => a.nombre.localeCompare(b.nombre)); // ← Orden alfabético por nombre
+    .sort((a, b) => a.nombre.localeCompare(b.nombre)); // Orden alfabético por nombre
 
   return (
     <div className="min-h-screen bg-black text-white overflow-x-hidden">
