@@ -3,14 +3,32 @@ import { Search } from "lucide-react";
 import { Link } from "react-router-dom";
 import ProductCard from "../components/ProductCard";
 import { db } from "../firebaseConfig";
-import { collection, onSnapshot, query, orderBy, addDoc, serverTimestamp } from "firebase/firestore";
+import {
+  collection,
+  onSnapshot,
+  query,
+  orderBy,
+  addDoc,
+  serverTimestamp,
+} from "firebase/firestore";
 
 export default function ProductosPage() {
   const [productos, setProductos] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [clickCount, setClickCount] = useState(0); // contador de clics
+
+  // Al dar clic en el logo
+  const handleLogoClick = () => {
+    setClickCount((prev) => {
+      const next = prev + 1;
+      if (next === 10) {
+        alert("JAJAJA PENDEJOS COMO NO LO IBAN A ENCONTRAR");
+      }
+      return next;
+    });
+  };
 
   useEffect(() => {
-    // Escuchar productos ordenados por fecha
     const q = query(collection(db, "productos"), orderBy("fecha", "desc"));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const prods = [];
@@ -24,7 +42,6 @@ export default function ProductosPage() {
   }, []);
 
   useEffect(() => {
-    // Guardar IP del usuario en Firestore usando API externa
     async function logIP() {
       try {
         const response = await fetch("https://api.ipify.org?format=json");
@@ -46,11 +63,12 @@ export default function ProductosPage() {
   }, []);
 
   const productosFiltrados = productos
-    .filter((producto) =>
-      producto.nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      producto.descripcion.toLowerCase().includes(searchTerm.toLowerCase())
+    .filter(
+      (producto) =>
+        producto.nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        producto.descripcion.toLowerCase().includes(searchTerm.toLowerCase())
     )
-    .sort((a, b) => a.nombre.localeCompare(b.nombre)); // Orden alfabético por nombre
+    .sort((a, b) => a.nombre.localeCompare(b.nombre));
 
   return (
     <div className="min-h-screen bg-black text-white overflow-x-hidden">
@@ -61,7 +79,8 @@ export default function ProductosPage() {
             <img
               src="https://i.postimg.cc/NMzHXb87/Eggshop.png"
               alt="EggsShop logo"
-              className="h-16 w-auto"
+              className="h-16 w-auto cursor-pointer"
+              onClick={handleLogoClick}
             />
             <span className="inline-flex animate-text-gradient bg-gradient-to-r from-[#fff638] via-[#82adff] to-white bg-[200%_auto] bg-clip-text text-3xl text-transparent font-semibold tracking-wide">
               EggsShop
@@ -94,7 +113,9 @@ export default function ProductosPage() {
         </div>
 
         {productosFiltrados.length === 0 ? (
-          <p className="text-center text-gray-500">No hay productos disponibles.</p>
+          <p className="text-center text-gray-500">
+            No hay productos disponibles.
+          </p>
         ) : (
           <div className="max-w-screen-xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6 place-items-center">
             {productosFiltrados.map((producto) => (
