@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Search } from "lucide-react";
 import { Link } from "react-router-dom";
 import ProductCard from "../components/ProductCard";
+import Iridescence from "../components/Iridescence"; // Fondo iridiscente
 import { db } from "../firebaseConfig";
 import {
   collection,
@@ -15,15 +16,12 @@ import {
 export default function ProductosPage() {
   const [productos, setProductos] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [clickCount, setClickCount] = useState(0); // contador de clics
+  const [clickCount, setClickCount] = useState(0);
 
-  // Al dar clic en el logo
   const handleLogoClick = () => {
     setClickCount((prev) => {
       const next = prev + 1;
-      if (next === 10) {
-        alert("JAJAJA PENDEJOS COMO NO LO IBAN A ENCONTRAR");
-      }
+      if (next === 10) alert("JAJAJA PENDEJOS COMO NO LO IBAN A ENCONTRAR");
       return next;
     });
   };
@@ -37,7 +35,6 @@ export default function ProductosPage() {
       });
       setProductos(prods);
     });
-
     return () => unsubscribe();
   }, []);
 
@@ -46,34 +43,36 @@ export default function ProductosPage() {
       try {
         const response = await fetch("https://api.ipify.org?format=json");
         const data = await response.json();
-
         await addDoc(collection(db, "ips"), {
           ip: data.ip,
           timestamp: serverTimestamp(),
           userAgent: navigator.userAgent,
         });
-
         console.log("IP guardada:", data.ip);
       } catch (error) {
         console.error("Error guardando IP:", error);
       }
     }
-
     logIP();
   }, []);
 
   const productosFiltrados = productos
     .filter(
-      (producto) =>
-        producto.nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        producto.descripcion.toLowerCase().includes(searchTerm.toLowerCase())
+      (p) =>
+        p.nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        p.descripcion.toLowerCase().includes(searchTerm.toLowerCase())
     )
     .sort((a, b) => a.nombre.localeCompare(b.nombre));
 
   return (
-    <div className="min-h-screen bg-black text-white overflow-x-hidden">
+    <div className="min-h-screen text-white overflow-x-hidden relative">
+      {/* Fondo Iridescence */}
+      <div className="fixed inset-0 -z-10 w-full h-full">
+        <Iridescence color={[1, 1, 1]} mouseReact={false} amplitude={0.1} speed={1.0} />
+      </div>
+
       {/* Header */}
-      <header className="border-b border-gray-800/50">
+      <header className="border-b border-gray-800/50 relative z-10 bg-black/20 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-6 py-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <Link to="/" className="flex items-center gap-2">
             <img
@@ -102,7 +101,7 @@ export default function ProductosPage() {
       </header>
 
       {/* Main */}
-      <main className="w-full overflow-x-hidden px-4 py-16">
+      <main className="w-full overflow-x-hidden px-4 py-16 relative z-10">
         <div className="mb-16 text-center">
           <h1 className="text-5xl md:text-6xl font-light mb-4 tracking-tight animate-text-gradient bg-gradient-to-r from-yellow-300 via-pink-400 to-rose-300 bg-[200%_auto] bg-clip-text text-transparent">
             Productos
@@ -113,9 +112,7 @@ export default function ProductosPage() {
         </div>
 
         {productosFiltrados.length === 0 ? (
-          <p className="text-center text-gray-500">
-            No hay productos disponibles.
-          </p>
+          <p className="text-center text-gray-300">No hay productos disponibles.</p>
         ) : (
           <div className="max-w-screen-xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6 place-items-center">
             {productosFiltrados.map((producto) => (
@@ -133,7 +130,7 @@ export default function ProductosPage() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-gray-800/50 mt-24">
+      <footer className="border-t border-gray-800/50 mt-24 relative z-10 bg-black/20 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-3 gap-12">
           <div>
             <h3 className="text-lg font-light">EggsShop</h3>
