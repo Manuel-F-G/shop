@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Search } from "lucide-react";
 import { Link } from "react-router-dom";
 import ProductCard from "../components/ProductCard";
-import Iridescence from "../components/Iridescence"; // Fondo iridiscente
+import Iridescence from "../components/Iridescence"; // Iridescent background
 import { db } from "../firebaseConfig";
 import {
   collection,
@@ -48,9 +48,9 @@ export default function ProductosPage() {
           timestamp: serverTimestamp(),
           userAgent: navigator.userAgent,
         });
-        console.log("IP guardada:", data.ip);
+        console.log("IP saved:", data.ip);
       } catch (error) {
-        console.error("Error guardando IP:", error);
+        console.error("Error saving IP:", error);
       }
     }
     logIP();
@@ -65,37 +65,36 @@ export default function ProductosPage() {
     .sort((a, b) => a.nombre.localeCompare(b.nombre));
 
   return (
-    <div className="min-h-screen text-white overflow-x-hidden relative">
-      {/* Fondo Iridescence */}
+    <div className="min-h-screen text-gray-700 overflow-x-hidden relative">
+      {/* Iridescence Background */}
       <div className="fixed inset-0 -z-10 w-full h-full">
         <Iridescence color={[1, 1, 1]} mouseReact={false} amplitude={0.1} speed={1.0} />
       </div>
 
       {/* Header */}
-      <header className="border-b border-gray-800/50 relative z-10 bg-black/20 backdrop-blur-sm">
-        <div className="max-w-7xl mx-auto px-6 py-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-          <Link to="/" className="flex items-center gap-2">
-            <img
-              src="https://i.postimg.cc/NMzHXb87/Eggshop.png"
-              alt="EggsShop logo"
-              className="h-16 w-auto cursor-pointer"
-              onClick={handleLogoClick}
+      {/* The 'w-full' class has been removed from here to fix the overflow */}
+      <header className="relative z-10 px-6 py-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4 bg-white/10 backdrop-blur-md border border-white/20 shadow-lg rounded-xl mx-6 mt-6">
+        <Link to="/" className="flex items-center gap-2">
+          <img
+            src="https://i.postimg.cc/NMzHXb87/Eggshop.png"
+            alt="EggsShop logo"
+            className="h-16 w-auto cursor-pointer"
+            onClick={handleLogoClick}
+          />
+          <span className="inline-flex animate-text-gradient bg-gradient-to-r from-[#fff638] via-[#82adff] to-white bg-[200%_auto] bg-clip-text text-3xl text-transparent font-semibold tracking-wide">
+            EggsShop
+          </span>
+        </Link>
+        <div className="flex justify-center md:justify-end w-full md:w-auto max-w-xs">
+          <div className="flex items-center bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-4 py-2 w-full">
+            <Search className="h-4 w-4 text-gray-700 mr-3" />
+            <input
+              type="text"
+              placeholder="Buscar"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="bg-transparent text-sm placeholder-gray-700 focus:outline-none w-full text-gray-700"
             />
-            <span className="inline-flex animate-text-gradient bg-gradient-to-r from-[#fff638] via-[#82adff] to-white bg-[200%_auto] bg-clip-text text-3xl text-transparent font-semibold tracking-wide">
-              EggsShop
-            </span>
-          </Link>
-          <div className="flex justify-center md:justify-end">
-            <div className="flex items-center bg-gray-900/50 rounded-full px-4 py-2 border border-gray-800 w-full md:w-auto">
-              <Search className="h-4 w-4 text-gray-500 mr-3" />
-              <input
-                type="text"
-                placeholder="Buscar"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="bg-transparent text-sm placeholder-gray-500 focus:outline-none w-full md:w-48"
-              />
-            </div>
           </div>
         </div>
       </header>
@@ -112,7 +111,7 @@ export default function ProductosPage() {
         </div>
 
         {productosFiltrados.length === 0 ? (
-          <p className="text-center text-gray-300">No hay productos disponibles.</p>
+          <p className="text-center text-gray-500">No hay productos disponibles.</p>
         ) : (
           <div className="max-w-screen-xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6 place-items-center">
             {productosFiltrados.map((producto) => (
@@ -130,23 +129,23 @@ export default function ProductosPage() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-gray-800/50 mt-24 relative z-10 bg-black/20 backdrop-blur-sm">
-        <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-3 gap-12">
+      <footer className="border-t border-white/20 mt-24 relative z-10 bg-white/10 backdrop-blur-md shadow-lg rounded-xl mx-6 mb-6 px-6 py-12 text-gray-700">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
           <div>
             <h3 className="text-lg font-light">EggsShop</h3>
-            <p className="text-gray-400 text-sm leading-relaxed max-w-xs">
+            <p className="text-gray-700 text-sm leading-relaxed max-w-xs">
               Bienvenido a la mejor chop de Perú
             </p>
           </div>
 
           <div>
-            <h4 className="text-sm font-medium text-gray-300">Enlaces</h4>
+            <h4 className="text-sm font-medium text-gray-700">Enlaces</h4>
             <div className="space-y-2 mt-2">
               <a
                 href="https://discord.gg/D5D5DfRf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block text-sm text-gray-400 hover:text-white transition"
+                className="block text-sm text-gray-700 hover:text-white transition"
               >
                 Discord
               </a>
@@ -154,7 +153,7 @@ export default function ProductosPage() {
                 href="https://publiegg.com/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block text-sm text-gray-400 hover:text-white transition"
+                className="block text-sm text-gray-700 hover:text-white transition"
               >
                 Panel
               </a>
@@ -162,22 +161,22 @@ export default function ProductosPage() {
           </div>
 
           <div>
-            <h4 className="text-sm font-medium text-gray-300">Contacto</h4>
-            <div className="space-y-2 text-sm text-gray-400 mt-2">
+            <h4 className="text-sm font-medium text-gray-700">Contacto</h4>
+            <div className="space-y-2 text-sm text-gray-700 mt-2">
               <p>Solo ticket, no dm</p>
               <p>9999999999</p>
             </div>
           </div>
         </div>
 
-        <div className="border-t border-gray-800/50 py-6">
-          <p className="text-center text-sm text-gray-500">
+        <div className="border-t border-white/20 py-6">
+          <p className="text-center text-sm text-gray-700">
             © 2025 Store. Todos los derechos reservados.
           </p>
         </div>
       </footer>
 
-      {/* Botón flotante Discord */}
+      {/* Floating Discord Button */}
       <a
         href="https://discord.gg/D5D5DfRf"
         target="_blank"

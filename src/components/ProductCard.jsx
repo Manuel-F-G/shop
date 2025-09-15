@@ -1,30 +1,30 @@
 export default function ProductCard({ nombre, descripcion, imagenURL, disponible, precio }) {
   return (
-    <div className="w-72 h-[440px] bg-black/60 backdrop-blur-md rounded-xl overflow-hidden shadow-lg border border-white/10 flex flex-col hover:scale-105 transition-transform">
+    <div className="w-72 h-[440px] bg-white/10 backdrop-blur-md border border-white/20 shadow-lg rounded-xl overflow-hidden flex flex-col hover:scale-105 transition-transform">
       
       {/* Imagen */}
       <div className="h-[250px] w-full">
         <img
           src={imagenURL}
           alt={nombre}
-          loading="lazy" // ← Lazy loading activado
+          loading="lazy"
           className="h-full w-full object-cover"
         />
       </div>
 
       {/* Contenido */}
       <div className="px-4 pt-2 pb-1 h-[90px]">
-        <h3 className="text-white font-semibold text-sm">{nombre}</h3>
-        <p className="text-sm text-gray-400 leading-snug whitespace-pre-line">{descripcion}</p>
+        <h3 className="text-gray-500 font-semibold text-sm">{nombre}</h3>
+        <p className="text-sm text-gray-700 leading-snug whitespace-pre-line">{descripcion}</p>
       </div>
 
       {/* Footer */}
       <div className="px-4 py-3 mt-auto">
-        <div className="bg-zinc-800/40 backdrop-blur-md rounded-lg p-2 flex items-center justify-between">
-          <span className="text-xs text-gray-300">
+        <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-lg p-2 flex items-center justify-between">
+          <span className="text-xs text-gray-700">
             {disponible ? "Disponible" : "Próximamente"}
           </span>
-          <button className="text-xs text-white bg-zinc-700/50 hover:bg-zinc-600/50 px-4 py-1 rounded-full transition">
+          <button className="text-xs text-gray-700 bg-white/10 hover:bg-white/20 px-4 py-1 rounded-full transition border border-white/20">
             {disponible ? `$${precio?.toFixed(2)}` : "No hay we"}
           </button>
         </div>
